@@ -4,24 +4,24 @@
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Unity WebGL Player | Jewel Mine</title>
-    <link rel="stylesheet" href="JewelMine.Unity.3D.WebGL.PC.Build/TemplateData/style.css">
-    <link rel="shortcut icon" href="JewelMine.Unity.3D.WebGL.PC.Build/TemplateData/favicon.ico" />
-    <script src="JewelMine.Unity.3D.WebGL.PC.Build/TemplateData/UnityProgress.js"></script>
+    <link rel="stylesheet" href="JewelMine.Unity.3D.WebGL.PC.Build.style.css">
+    <link rel="shortcut icon" href="TemplateData/favicon.ico" />
+    <script src="TemplateData/UnityProgress.js"></script>
   </head>
   <body class="template">
     <p class="header"><span>Unity WebGL Player | </span>Jewel Mine</p>
     <div class="template-wrap clear">
     <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" height="600px" width="800px"></canvas>
       <div class="logo"></div>
-      <div class="fullscreen"><img src="JewelMine.Unity.3D.WebGL.PC.Build/TemplateData/fullscreen.png" width="38" height="38" alt="Fullscreen" title="Fullscreen" onclick="SetFullscreen(1);" /></div>
+      <div class="fullscreen"><img src="TemplateData/fullscreen.png" width="38" height="38" alt="Fullscreen" title="Fullscreen" onclick="SetFullscreen(1);" /></div>
       <div class="title">Jewel Mine</div>
     </div>
     <p class="footer">&laquo; created with <a href="http://unity3d.com/" title="Go to unity3d.com">Unity</a> &raquo;</p>
     <script type='text/javascript'>
   // connect to canvas
   var Module = {
-    filePackagePrefixURL: "JewelMine.Unity.3D.WebGL.PC.Build/Release/",
-    memoryInitializerPrefixURL: "JewelMine.Unity.3D.WebGL.PC.Build/Release/",
+    filePackagePrefixURL: "Release/",
+    memoryInitializerPrefixURL: "Release/",
     preRun: [],
     postRun: [],
     print: (function() {
@@ -58,15 +58,15 @@
   };
   Module.setStatus('Downloading (0.0/1)');
 </script>
-<script src="JewelMine.Unity.3D.WebGL.PC.Build/Release/UnityConfig.js"></script>
-<script src="JewelMine.Unity.3D.WebGL.PC.Build/Release/fileloader.js"></script>
+<script src="Release/UnityConfig.js"></script>
+<script src="Release/fileloader.js"></script>
 <script>if (!(!Math.fround)) {
   var script = document.createElement('script');
-  script.src = "JewelMine.Unity.3D.WebGL.PC.Build/Release/JewelMine.Unity.3D.WebGL.PC.Build.js";
+  script.src = "Release/JewelMine.Unity.3D.WebGL.PC.Build.js";
   document.body.appendChild(script);
 } else {
   var codeXHR = new XMLHttpRequest();
-  codeXHR.open('GET', 'JewelMine.Unity.3D.WebGL.PC.Build/Release/JewelMine.Unity.3D.WebGL.PC.Build.js', true);
+  codeXHR.open('GET', 'Release/JewelMine.Unity.3D.WebGL.PC.Build.js', true);
   codeXHR.onload = function() {
     var code = codeXHR.responseText;
     if (!Math.fround) { 
@@ -99,6 +99,16 @@ try {
   };
   codeXHR.send(null);
 }
+</script>
+<script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+<script type="text/javascript">
+    try {
+        var pageTracker = _gat._getTracker("UA-63392775-1");
+        pageTracker._trackPageview();
+    } catch(err) {}
 </script>
   </body>
 </html>
