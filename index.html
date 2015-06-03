@@ -30,14 +30,50 @@
                 
                 <section id="main_content">
                     <h3>
-                        <a id="jewelmine.unity.3d" class="anchor" href="#jewelmine.unity.3d" aria-hidden="true"><span class="octicon octicon-link"></span></a>JewelMine.Unity.3D</h3>
+                        <a id="jewelmine.unity.3d" class="anchor" href="#jewelmine.unity.3d" aria-hidden="true"><span class="octicon octicon-link"></span></a>JewelMine.Unity.3D for WebGL</h3>
                     
-                    <p>Port of original JewelMine game to Unity. Using the engine from the original game largely intact.
+                    <p>Port of original <a href="http://github.com/retroburst/JewelMine">JewelMine</a> game to Unity. This version uses the engine from the original game largely intact.
+                    Jewel Mine is a simple game, reminiscent of 'Columns' on the Sega GameGear. It is written as an exercise to flex skills and try my hand at a small game.
                     <br/>
-                    <a href="./JewelMine.Unity.3D.WebGL.PC.Build/">JewelMine.Unity.3D WebGL build for PCs</a><br/>
+                    <h4>Some Details</h4>
+                    <ul>
+                        <li>Music in the game was composed by Essa, used under the creative commons license - the track is "Ambient Loop 1" (https://soundcloud.com/essa-1).</li>
+                        <li>Sounds in the game were sourced from SoundBible (http://soundbible.com/) and normalised as wav files through http://www.online-convert.com/ and http://media.io.</li>
+                    </ul>
+                    <h4>Default Bindings</h4>
+                    <ul>
+                        <li>Movement - Left, Right and Down Arrows or Swipe Left, Right and Down for Touch</li>
+                        <li>Swap Jewels - Space or Tap for Touch</li>
+                        <li>Pause Game - P</li>
+                        <li>Restart Game - R</li>
+                        <li>Toggle Music - M</li>
+                        <li>Toggle Sound Effects - N</li>
+                        <li>Change Game Difficulty - D</li>
+                        <li>Save Game - S</li>
+                        <li>Load Game - L</li>
+                    </ul>
                     
+                    <h4>How to Win</h4>
+                    You win by either clearing all jewels in the mine (which is very hard to do) or by scoring enough points from forming groups of like jewels to beat the last level of the game. To form a group of jewels you must have at least 3 like jewels in a vertical, horizontal or diagonal line. Other jewels in the vicinity will also be pulled into the group, but at least 3 must be in a line. You will receive more points for a group based on a diagonal line of 3 or more than vertical or horizontal. As the level increases, some parameters of the game logic are tweaked, most noticeably is the speed.
+                    <br/><br/>
                     
+                    <h4>Number of Levels by Difficulty</h4>
+                    <ul>
+                        <li>Easy : 255 levels</li>
+                        <li>Moderate : 500 levels</li>
+                        <li>Hard : 1000 levels</li>
+                        <li>Impossible : 10000 levels</li>
+                    </ul>
                     
+                    <h4>Notes</h4>
+                    The game will store your preferences such as mute state of music and sound effects, the game difficulty you last played.
+                    <br/><br/>
+                    
+                    <h4>Unity WebGL Player for JewelMine.Unity.3D</h4>
+                    At this stage Unity WebGL player does not support mobile device browsers, but that funcionality shouldn't be far off. You can play this in any
+                    decent modern browser that supports HTML5.
+                    <br/><br/>
+                    <a href="./JewelMine.Unity.3D.WebGL.PC.Build/">Play JewelMine in Unity WebGL Player</a>
                     </p>
                 </section>
                 
