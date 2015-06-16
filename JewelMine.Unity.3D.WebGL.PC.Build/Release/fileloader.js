@@ -11,9 +11,11 @@ Module.expectedDataFileDownloads++;
     var PACKAGE_PATH;
     if (typeof window === 'object') {
       PACKAGE_PATH = window['encodeURIComponent'](window.location.pathname.toString().substring(0, window.location.pathname.toString().lastIndexOf('/')) + '/');
-    } else {
+    } else if (typeof location !== 'undefined') {
       // worker
       PACKAGE_PATH = encodeURIComponent(location.pathname.toString().substring(0, location.pathname.toString().lastIndexOf('/')) + '/');
+    } else {
+      throw 'using preloaded data can only be done on a web page or in a web worker';
     }
     var PACKAGE_NAME = 'JewelMine.Unity.3D.WebGL.PC.Build.data';
     var REMOTE_PACKAGE_BASE = 'JewelMine.Unity.3D.WebGL.PC.Build.data';
@@ -24,8 +26,8 @@ Module.expectedDataFileDownloads++;
     var REMOTE_PACKAGE_NAME = typeof Module['locateFile'] === 'function' ?
                               Module['locateFile'](REMOTE_PACKAGE_BASE) :
                               ((Module['filePackagePrefixURL'] || '') + REMOTE_PACKAGE_BASE);
-    var REMOTE_PACKAGE_SIZE = 12109682;
-    var PACKAGE_UUID = '84cc7a69-ca66-420e-b628-a00933dd4995';
+    var REMOTE_PACKAGE_SIZE = 11988364;
+    var PACKAGE_UUID = 'b85deede-ae89-4de8-8e78-c18a2d8f3e4a';
   
     function fetchRemotePackage(packageName, packageSize, callback, errback) {
       var xhr = new XMLHttpRequest();
@@ -123,12 +125,12 @@ Module['FS_createPath']('/', 'Resources', true, true);
         this.requests[this.name] = null;
       },
     };
-      new DataRequest(0, 184852, 0, 0).open('GET', '/mainData');
-    new DataRequest(184852, 185435, 0, 0).open('GET', '/methods_pointedto_by_uievents.xml');
-    new DataRequest(185435, 7594327, 0, 0).open('GET', '/sharedassets0.assets');
-    new DataRequest(7594327, 10035202, 0, 0).open('GET', '/sharedassets0.resource');
-    new DataRequest(10035202, 11595574, 0, 0).open('GET', '/Resources/unity_default_resources');
-    new DataRequest(11595574, 12109682, 0, 0).open('GET', '/Resources/unity_builtin_extra');
+      new DataRequest(0, 186116, 0, 0).open('GET', '/mainData');
+    new DataRequest(186116, 186699, 0, 0).open('GET', '/methods_pointedto_by_uievents.xml');
+    new DataRequest(186699, 8471023, 0, 0).open('GET', '/sharedassets0.assets');
+    new DataRequest(8471023, 9912852, 0, 0).open('GET', '/sharedassets0.resource');
+    new DataRequest(9912852, 11487888, 0, 0).open('GET', '/Resources/unity_default_resources');
+    new DataRequest(11487888, 11988364, 0, 0).open('GET', '/Resources/unity_builtin_extra');
 
     function processPackageData(arrayBuffer) {
       Module.finishedDataFileDownloads++;

@@ -69,39 +69,46 @@ function CompatibilityCheck()
 CompatibilityCheck();
 
 var didShowErrorMessage = false;
-window.onerror = function UnityErrorHandler(err, url, line)
+if (typeof window.onerror != 'function')
 {
-    console.log ("Invoking error handler due to\n"+err);
-    if (typeof dump == 'function')
-        dump ("Invoking error handler due to\n"+err);
-   if (didShowErrorMessage)
-        return;
+    window.onerror = function UnityErrorHandler(err, url, line)
+    {
+        console.log ("Invoking error handler due to\n"+err);
+        if (typeof dump == 'function')
+            dump ("Invoking error handler due to\n"+err);
+        if (didShowErrorMessage)
+            return;
 
-    didShowErrorMessage = true;
-    if (err.indexOf("DISABLE_EXCEPTION_CATCHING") != -1)
-    {
-        alert ("An exception has occured, but exception handling has been disabled in this build. If you are the developer of this content, enable exceptions in your project's WebGL player settings to be able to catch the exception or see the stack trace.");
-        return;
-    }
-    if (err.indexOf("uncaught exception: abort()") != -1)
-    {
-        if (err.indexOf("Runtime.dynamicAlloc") != -1)
+        // Firefox has a bug where it's IndexedDB implementation will throw UnknownErrors, which are harmless, and should not be shown.
+        if (err.indexOf("UnknownError") != -1)
+            return;
+
+        didShowErrorMessage = true;
+        if (err.indexOf("DISABLE_EXCEPTION_CATCHING") != -1)
         {
-            alert ("Out of memory. If you are the developer of this content, try allocating more memory to your WebGL build in the WebGL player settings.");
-            return;        
+            alert ("An exception has occured, but exception handling has been disabled in this build. If you are the developer of this content, enable exceptions in your project's WebGL player settings to be able to catch the exception or see the stack trace.");
+            return;
         }
-    }
-    if (err.indexOf("Invalid array buffer length") != -1)
-    {
-        alert ("The browser could not allocate enough memory for the WebGL content. If you are the developer of this content, try allocating less memory to your WebGL build in the WebGL player settings.");
-        return;                
-    }
-    if (err.indexOf("Script error.") != -1 && document.URL.indexOf("file:") == 0)
-    {
-        alert ("It seems your browser does not support running Unity WebGL content from file:// urls. Please upload it to an http server, or try a different browser.");
-        return;
-    } 
-    alert ("An error occured running the Unity content on this page. See your browser's JavaScript console for more info. The error was:\n"+err);
+        if (err.indexOf("uncaught exception: abort()") != -1)
+        {
+            if (err.indexOf("Runtime.dynamicAlloc") != -1)
+            {
+                alert ("Out of memory. If you are the developer of this content, try allocating more memory to your WebGL build in the WebGL player settings.");
+                return;        
+            }
+        }
+        if (err.indexOf("Invalid array buffer length") != -1)
+        {
+            alert ("The browser could not allocate enough memory for the WebGL content. If you are the developer of this content, try allocating less memory to your WebGL build in the WebGL player settings.");
+            return;                
+        }
+        if (err.indexOf("Script error.") != -1 && document.URL.indexOf("file:") == 0)
+        {
+            alert ("It seems your browser does not support running Unity WebGL content from file:// urls. Please upload it to an http server, or try a different browser.");
+            return;
+        } 
+        alert ("An error occured running the Unity content on this page. See your browser's JavaScript console for more info. The error was:\n"+err);
+}
 }
 
 function SetFullscreen(fullscreen)
