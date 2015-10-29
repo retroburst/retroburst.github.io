@@ -53,7 +53,7 @@
                     
                     <h4>Default Bindings</h4>
                     <ul>
-                        <li>Movement - Left, Right and Down Arrows or Swipe Left and Right for Touch</li>
+                        <li>Movement - Left, Right or Swipe Left and Right for Touch</li>
                         <li>Launch Orb - Control or Tap for Touch</li>
                         <li>Pause Game - P</li>
                         <li>Restart Game - R</li>
@@ -79,6 +79,13 @@
                     <h4>WebGL Build</h4>
                     At this stage Unity WebGL player does not support mobile device browsers but that funcionality shouldn't be far off. You can play the WebGL build in any
                     decent modern browser that supports HTML5. Touch inut should now be supported in the WebGL player as of Unity 5.1 (2015-06-16).
+                    <br/><br/>
+                    <b>Known issues</b>
+                    <ul>
+                        <li>Safari will not render the default Unity shader at all, appears as white [Unity+WebGL Issue]</li>
+                        <li>The lighting changes for the day vs night scene is not working correctly in the WebGL build, no directional lights are working [Unity+WebGL Issue]</li>
+                        <li>Touch controls do not work smoothly [Implementation Issue]</li>
+                        </ul>
                     <br/><br/>
                     <a href="./ShintoMon.Unity.3D.WebGL.Build/">Play Shinto Mon in Unity WebGL Player</a>
                     <br/><br/>
