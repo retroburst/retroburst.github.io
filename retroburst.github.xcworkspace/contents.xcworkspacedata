@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:irwatcher.html">
+   </FileRef>
+   <FileRef
+      location = "group:favicon.ico">
+   </FileRef>
+   <FileRef
+      location = "group:images">
+   </FileRef>
+   <FileRef
+      location = "group:index.html">
+   </FileRef>
+   <FileRef
+      location = "group:javascripts">
+   </FileRef>
+   <FileRef
+      location = "group:jewelmine.unity.3d.html">
+   </FileRef>
+   <FileRef
+      location = "group:LICENSE">
+   </FileRef>
+   <FileRef
+      location = "group:shintomon.unity.3d.html">
+   </FileRef>
+   <FileRef
+      location = "group:stylesheets">
+   </FileRef>
+   <FileRef
+      location = "group:towerofdebt.unity.3d.html">
+   </FileRef>
+</Workspace>
