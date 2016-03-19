@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>8F6A6130-9F84-4A25-A0D2-A6C1EB9A6D8C</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Kata.LoanPrediction.JavaScript</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>962E94D969D2D0CB2465ACADE3F83B156DE0D648</key>
+		<string>https://github.com/retroburst/Kata.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>JavaScript/Kata.LoanPrediction.JavaScript/Kata.LoanPrediction.JavaScript.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>962E94D969D2D0CB2465ACADE3F83B156DE0D648</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/retroburst/Kata.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>962E94D969D2D0CB2465ACADE3F83B156DE0D648</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>962E94D969D2D0CB2465ACADE3F83B156DE0D648</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Kata</string>
+		</dict>
+	</array>
+</dict>
+</plist>
