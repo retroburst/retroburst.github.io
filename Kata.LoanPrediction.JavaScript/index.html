@@ -41,9 +41,8 @@
             <p>MIT licensed software; retroburst (Andrew D).</p>
         </footer>
         </div>
-        
         <script src="scripts/jquery.min.js"></script>
-        <script src="scripts/jquery.validate.min.js"></script>
+        <script src="scripts/loglevel.min.js"></script>
         <script src="scripts/moment.js"></script>
         <script src="scripts/combodate.js"></script>
         <script src="scripts/bootstrap.min.js"></script>
@@ -52,257 +51,12 @@
         <script src="scripts/handlebars.min.js"></script>
         <script src="scripts/validate.min.js"></script>
         <script src="scripts/string.min.js"></script>
-        <script src="scripts/kata.loan.prediction.js"></script>
+        <script src="scripts/kata.loan.prediction.common.js"></script>
+        <script src="scripts/kata.loan.prediction.view.js"></script>
         <script>
-        // TODO: defaults - last input settings from nedb
-        // TODO: validation on related fields (custom validator) e.g. target end date after strat date
-        // TODO: refactor - move code into seperate js files like the kata app code
-        // TODO: update bower.json with dependencies and remove bower_components from git
-        var dateFormat = "DD/MM/YYYY";
-        var templates = null;
-        var validateConstraints = null;
-        var defaultSettings = {
-            startDate : moment(),
-            targetEndDate : moment().add(25, 'year'),
-            balance : 250000,
-            interestRate : 5.00,
-            minRepaymentAmount : 2000,
-            minRepaymentDay : 1,
-            extraRepaymentAmount : 1000,
-            extraRepaymentDay : 20,
-            currencySymbol : accounting.settings.currency.symbol
-        };
-        
-        var joinErrorMessages = function(messages){
-            messages = messages || [];
-            var result = messages.join('. ');
-            if(!S(result).endsWith('.')){
-                result += '.';
-            }
-            return(result);
-        };
-        
-        var showValidationErros = function showValidationErros(errors){
-            errors = errors || {};
-            for (var property in errors) {
-                console.log("Property");
-                console.log(property);
-                if (errors.hasOwnProperty(property)) {
-                    var input = $('#' + property);
-                    console.log(input);
-                    if(input){
-                        var group = input.closest('.form-group');
-                        if(group){
-                            group.addClass('has-error');
-                            group.find('.validation-message').text(joinErrorMessages(errors[property]));
-                        }
-                    }
-                }
-            }
-        };
-        
-        var clearValidationErrors = function clearValidationErrors(){
-            $('.validation-message').empty();
-            $('.form-group').removeClass('has-error');
-        };
-        
-        var initHandlebars = function initHandlebars(){
-            Handlebars.registerHelper('formatDate', function(date) {
-                var dateAsMoment = date;
-                if(date instanceof Date){
-                    dateAsMoment = moment(date);
-                }
-                if(dateAsMoment instanceof moment){
-                    return(moment(date).format(dateFormat));
-                }
-            });
-            
-            Handlebars.registerHelper('formatMoney', function(amount) {
-                if(!isNaN(amount)){
-                    return(accounting.formatMoney(amount));
-                }
-            });
-            
-            Handlebars.registerHelper('formatDecimal', function(target) {
-                if(!isNaN(target)){
-                    return(target.toFixed(2));
-                }
-            });
-            
-            Handlebars.registerHelper('isAroundTargetEndDate',function isAroundTargetEndDate(transDate, targetEndDate){
-                var transDateAsMoment = moment(transDate);
-                var targetEndDateAsMoment = moment(targetEndDate);
-                if(transDateAsMoment.month() == targetEndDateAsMoment.month()
-                    && transDateAsMoment.year() == targetEndDateAsMoment.year()){
-                    return(true);
-                } else {
-                    return(false);
-                }
-            });
-
-            Handlebars.registerHelper('formatDateForComboDate', function(date) {
-                var dateAsMoment = date;
-                if(date instanceof Date){
-                    dateAsMoment = moment(date);
-                }
-                if(dateAsMoment instanceof moment){
-                    return(dateAsMoment.format(dateFormat));
-                }
-            });
-
-            var templates = {
-                inputFormTemplate : Handlebars.compile($("#input-form-template").html()),
-                resultsTemplate : Handlebars.compile($("#results-template").html())
-            };
-            return(templates);
-        };
-        
-        // init form
-        var initInputForm = function initInputForm(){
-            var initialSettings = defaultSettings || storedSettings;
-            // intial view setup
-            $('#inputContainer').show();
-            $('#resultsContainer').hide();
-            $('#inputFormContainer').empty();
-            $('#inputFormContainer').append(templates.inputFormTemplate(initialSettings));
-            
-            $('#calculateButton').click(function(e){
-                clearValidationErrors();
-                var attributes = {};
-                attributes.balance = $('#balance').val();
-                attributes.interestRate = $('#interestRate').val();
-                attributes.minRepaymentAmount = $('#minRepaymentAmount').val();
-                attributes.minRepaymentDay = $('#minRepaymentDay').val();
-                attributes.extraRepaymentAmount = $('#extraRepaymentAmount').val();
-                attributes.extraRepaymentDay = $('#extraRepaymentDay').val();
-                attributes.startDate = $('#startDate').val();
-                attributes.targetEndDate = $('#targetEndDate').val();
-                var errors = validate(attributes, validateConstraints);
-                console.log(errors);
-                if(!errors){
-                    initResults();
-                } else {
-                    showValidationErros(errors);
-                }
-            });
-            
-            $('.combodate').combodate(
-                {
-                minYear: 1975,
-                maxYear: 2050,
-                customClass: 'form-control combodate-inline',
-                format: dateFormat
-            });
-        };
-        
-        var initResults = function initResults(){
-            // calculate
-            var context = new kataLoanPredictionApp.models.loanContext();
-            context.balance = parseFloat($('#balance').val());
-            context.interestRate = parseFloat($('#interestRate').val());
-            context.minRepaymentAmount = parseFloat($('#minRepaymentAmount').val());
-            context.minRepaymentDay = parseInt($('#minRepaymentDay').val());
-            context.extraRepaymentAmount = parseFloat($('#extraRepaymentAmount').val());
-            context.extraRepaymentDay = parseInt($('#extraRepaymentDay').val());
-            context.startDate = moment($('#startDate').val(), dateFormat).toDate();
-            context.targetEndDate = moment($('#targetEndDate').val(), dateFormat).toDate();
-            var output = kataLoanPredictionApp.calculator.calculate(context);
-            // clear table
-            $('#resultsContainer').empty();
-            $('#resultsContainer').append(templates.resultsTemplate({ context : context, output : output }));
-            // show results
-            // hide input
-            $('#resultsContainer').show();
-            $('#inputContainer').hide();
-            
-            $('.start-over-button').click(function(e){
-                initInputForm();
-            });
-            
-            $("html, body").animate({ scrollTop: 0 }, "slow");
-        };
-        
-        var initValidate = function initValidate(){
-            // Before using it we must add the parse and format functions
-            // Here is a sample implementation using moment.js
-            validate.extend(validate.validators.datetime, {
-                // The value is guaranteed not to be null or undefined but otherwise it
-                // could be anything.
-                parse: function(value, options) {
-                    return +moment.utc(value, dateFormat);
-                },
-                // Input is a unix timestamp
-                format: function(value, options) {
-                    var format = options.dateOnly ? dateFormat : dateFormat + " hh:mm:ss";
-                    return moment.utc(value).format(format);
-                }
-            });
-            
-            // These are the constraints used to validate the form
-            var constraints = {
-                startDate: {
-                    presence: true,
-                    datetime: {
-                        dateOnly: true
-                    }
-                },
-                targetEndDate: {
-                    presence: true,
-                    datetime: {
-                        dateOnly: true
-                    }
-                },
-                balance: {
-                    presence: true,
-                    numericality: {
-                        onlyInteger: false,
-                        greaterThan: 0
-                    }
-                },
-                interestRate: {
-                    presence: true,
-                    numericality: {
-                        onlyInteger: false,
-                        greaterThan: 0
-                    }
-                },
-                minRepaymentAmount: {
-                    presence: true,
-                    numericality: {
-                        onlyInteger: false,
-                        greaterThan: 0
-                    }
-                },
-                minRepaymentDay: {
-                    presence: true,
-                    numericality: {
-                        onlyInteger: true,
-                        greaterThan: 0
-                    }
-                },
-                extraRepaymentAmount: {
-                    presence: false,
-                    numericality: {
-                        onlyInteger: false,
-                        greaterThan: 0
-                    }
-                },
-                extraRepaymentDay: {
-                    presence: false,
-                    numericality: {
-                        onlyInteger: true,
-                        greaterThan: 0
-                    }
-                }
-            };
-            return(constraints);
-        };
-        
+        // TODO: refactor and prettify
         $(document).ready(function () {
-            // init handlebars
-            templates = initHandlebars();
-            validateConstraints = initValidate();
-            initInputForm();
+            kataLoanPredictionView.initView();
         });
         </script>
         <script id="input-form-template" type="text/x-handlebars-template">
@@ -371,6 +125,7 @@
                 </div>
                 <div class="form-group">
                     <button type="button" id="calculateButton" class="btn btn-primary btn-lg">Calculate</button>
+                    <button type="button" id="resetDefault" class="btn btn-primary btn-lg">Reset</button>
                 </div>
             </form>
         </script>
@@ -378,14 +133,14 @@
                 <div class="jumbotron">
                     <h1>Results.</h1>
                     <p>
-                    Loan ends on {{{formatDate output.loanEndsDate}}}<br />
-                    Total interest paid from {{{formatDate output.interestStartDate}}}
-                    was {{{formatMoney output.totalInterestPaid}}}<br />
+                    Loan ends on {{formatDate output.loanEndsDate}}<br />
+                    Total interest paid from {{formatDate output.interestStartDate}}
+                    was {{formatMoney output.totalInterestPaid}}<br />
                     {{#if output.targetEndDateHit}}
-                        Target end date {{{formatDate context.targetEndDate}}} was
+                        Target end date {{formatDate context.targetEndDate}} was
                         hit <u>perfectly</u>!
                     {{else}}
-                        Target end date {{{formatDate context.targetEndDate}}} was
+                        Target end date {{formatDate context.targetEndDate}} was
                         missed by <u>{{output.targetEndDateMissedInDays}}</u> days!
                     {{/if}}
                     </p>
@@ -407,43 +162,43 @@
                     <tbody>
                     {{#each output.transactions}}
                        <tr>
-                       <td>{{{formatDate date}}}
+                       <td>{{formatDate date}}
                        {{#if (isAroundTargetEndDate date ../context.targetEndDate)}}
                            <span class="label label-danger">Target End</span>
                         {{/if}}
                        </td>
                             <td>{{type.description}}</td>
-                            <td class="success"><p class="text-right">{{{formatMoney credit}}}</p></td>
-                            <td class="danger"><p class="text-right">{{{formatMoney debit}}}</p></td>
-                            <td><p class="text-right">{{{formatMoney balance}}}</p></td>
+                            <td class="success"><p class="text-right">{{formatMoneyShort credit}}</p></td>
+                            <td class="danger"><p class="text-right">{{formatMoneyShort debit}}</p></td>
+                            <td><p class="text-right">{{formatMoneyShort balance}}</p></td>
                         </tr>
                     {{/each}}
                     </tbody>
                 </table>
                 <div class="well">
                     <span class="parameter-display">Start Date <span class="label label-primary">
-                        {{{formatDate context.startDate}}}
+                        {{formatDate context.startDate}}
                     </span></span>
                     <span class="parameter-display">Target End Date <span class="label label-primary">
-                        {{{formatDate context.targetEndDate}}}
+                        {{formatDate context.targetEndDate}}
                     </span></span>
                     <span class="parameter-display">Balance <span class="label label-primary">
-                        {{{formatMoney context.balance}}}
+                        {{formatMoney context.balance}}
                     </span></span>
                     <span class="parameter-display">Interest Rate <span class="label label-primary">
-                        {{{formatDecimal context.interestRate}}}%
+                        {{formatDecimal context.interestRate}}%
                     </span></span>
                     <span class="parameter-display">Min. Repay Amount <span class="label label-primary">
-                        {{{formatMoney context.minRepaymentAmount}}}
+                        {{formatMoney context.minRepaymentAmount}}
                     </span></span>
                     <span class="parameter-display">Min. Repay Day <span class="label label-primary">
                         {{context.minRepaymentDay}}
                     </span></span>
                     <span class="parameter-display">Extra Repay Amount <span class="label label-primary">
-                        {{{formatMoney context.extraRepaymentAmount}}}
+                        {{safePrintParameter (formatMoney context.extraRepaymentAmount)}}
                     </span></span>
                     <span class="parameter-display">Extra Repay Day <span class="label label-primary">
-                        {{context.extraRepaymentDay}}
+                        {{safePrintParameter context.extraRepaymentDay}}
                     </span></span>
                 </div>
                 <p>

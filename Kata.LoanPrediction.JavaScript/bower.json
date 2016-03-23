@@ -1,0 +1,37 @@
+{
+  "name": "Kata.LoanPrediction.JavaScript",
+  "homepage": "https://github.com/retroburst/Kata",
+  "authors": [
+    "Andrew D <retroburst@gmail.com>"
+  ],
+  "description": "Loan prediction kata in JavaScript",
+  "main": "index.html",
+  "moduleType": [],
+  "keywords": [
+    "loan",
+    "prediction",
+    "JavaScript",
+    "kata"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "accounting": "^0.3.2",
+    "combodate": "^1.1.0",
+    "bootstrap": "^3.3.6",
+    "handlebars": "^4.0.5",
+    "nedb": "^1.6.0",
+    "moment": "^2.12.0",
+    "jquery": "^2.2.1",
+    "string": "^3.3.1",
+    "validate": "validate.js#^0.9.0",
+    "loglevel": "^1.4.0"
+  }
+}
