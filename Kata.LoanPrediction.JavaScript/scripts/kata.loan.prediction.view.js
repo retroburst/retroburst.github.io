@@ -210,6 +210,8 @@ var kataLoanPredictionView = function() {
         
         $('#resetDefault').click(function(e){
             initInputForm(defaultLoanContextSettings);
+            $('#startDate').focus();
+            $("html, body").animate({ scrollTop: 0 }, "slow");
         });
         
         $('.combodate').combodate(
