@@ -107,11 +107,11 @@ var kataLoanPredictionView = function() {
             }
         });
         
-        Handlebars.registerHelper('safePrintParameter', function(target) {
+        Handlebars.registerHelper('safeValue', function(target, safeValue) {
             if(target){
                 return(target);
             } else {
-                return('N/A');
+                return(safeValue);
             }
         });
 
