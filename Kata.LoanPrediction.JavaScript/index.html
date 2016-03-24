@@ -6,12 +6,12 @@
         <title>Kata Loan Prediction - JavaScript</title>
         <link href="css/bootstrap.slate.min.css" rel="stylesheet"/>
         <link href="css/site.css" rel="stylesheet"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     </head>
     <body>
         <div class="container">
             <div class="navbar">
-                <div class="container">
+                <div class="container-fluid">
                     <div class="navbar-header">
                         <span class="navbar-brand inactive">Kata Loan Prediction - JavaScript</span>
                     </div>
@@ -54,6 +54,7 @@
         <script src="scripts/kata.loan.prediction.common.js"></script>
         <script src="scripts/kata.loan.prediction.view.js"></script>
         <script>
+        // TODO: only save the loan context to NeDB if some values changed
         // TODO: refactor and prettify
         $(document).ready(function () {
             kataLoanPredictionView.initView();

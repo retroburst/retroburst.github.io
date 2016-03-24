@@ -1,9 +1,10 @@
-body { padding: 20px; }
-@media (max-width:320px) { body { padding: 1px; } }
-@media (max-width:481px) { body { padding: 5px; } }
-@media (max-width:641px) { body { padding: 10px; } }
-@media (max-width:961px) { body { padding: 15px; }  }
+.container { padding: 50px; }
+@media (max-width:320px) { .container { padding: 1px;  } }
+@media (max-width:481px) { .container { padding: 2px;  } }
+@media (max-width:641px) { .container { padding: 5px;  } }
+@media (max-width:961px) { .container { padding: 10px;  } }
 
+ 
 /* Override the default bootstrap behavior where horizontal description lists
  will truncate terms that are too long to fit in the left column
  */
